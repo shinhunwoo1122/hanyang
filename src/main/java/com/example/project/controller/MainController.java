@@ -52,4 +52,13 @@ public class MainController {
         return mView;
     }
 
+    @GetMapping("/5")
+    public ModelAndView contentDetail(){
+
+        ModelAndView mView = new ModelAndView();
+        mView.setViewName("content-detail");
+
+        return mView;
+    }
+
 }
