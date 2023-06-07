@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>H202046035(졸업 프로젝트)</title>
@@ -38,7 +38,7 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center mainfont" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center mainfont" th:href="@{/main}">
                 EatToday
             </a>
 
@@ -46,23 +46,28 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div th:replace="~{/fragment/menu :: menuBar}">
+
+
+            </div>
+
+            <!--<div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Main</a>
+                            <a class="nav-link" th:href="@{/main}">Main</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Restaurant</a>
+                            <a class="nav-link" th:href="@{/restaurant}">Restaurant</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Community</a>
+                            <a class="nav-link" th:href="@{/community}">Community</a>
                         </li>
                     </ul>
                 </div>
 
             </div>
-
+-->
         </div>
     </nav>
     <!-- Close Header -->

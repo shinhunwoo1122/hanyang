@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>H202046035(졸업 프로젝트)</title>
@@ -62,7 +62,7 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center mainfont" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center mainfont" th:href="@{/main}">
                 EatToday
             </a>
 
@@ -70,21 +70,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Main</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Restaurant</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Community</a>
-                        </li>
-                    </ul>
-                </div>
-
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav" th:fragment="~{/fragment/menu :: menuBar}">
             </div>
 
         </div>
@@ -142,12 +128,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food1.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">구일가든</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">구일가든</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">한식</li>
                                     <li class="pt-2">
@@ -168,12 +154,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food9.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">가미분식</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">가미분식</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">한식</li>
                                     <li class="pt-2">
@@ -194,12 +180,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food2.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">이학막국수</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">이학막국수</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">한식</li>
                                     <li class="pt-2">
@@ -220,12 +206,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food3.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">흙토담골</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">흙토담골</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">한식</li>
                                     <li class="pt-2">
@@ -246,12 +232,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food4.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">엘리스리틀이태리</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">엘리스리틀이태리</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">양식</li>
                                     <li class="pt-2">
@@ -272,12 +258,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food5.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">파델라</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">파델라</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">양식</li>
                                     <li class="pt-2">
@@ -298,12 +284,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food6.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">시키카츠</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">시키카츠</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">일식</li>
                                     <li class="pt-2">
@@ -324,12 +310,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food7.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">스시소라</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">스시소라</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">일식</li>
                                     <li class="pt-2">
@@ -350,12 +336,12 @@
                                 <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food8.jpg">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none main-food-font">길버트버거앤프라이즈</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">길버트버거앤프라이즈</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     <li class="category-font">양식</li>
                                     <li class="pt-2">

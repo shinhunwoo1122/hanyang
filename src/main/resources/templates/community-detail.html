@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>H202046035(졸업 프로젝트)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/templatemo.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
 
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-
-    <!-- Slick -->
-    <link rel="stylesheet" type="text/css" href="assets/css/slick.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
 
 </head>
 
@@ -41,7 +37,7 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center mainfont" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center mainfont" th:href="@{/main}">
                 EatToday
             </a>
 
@@ -49,21 +45,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Main</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Restaurant</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Community</a>
-                        </li>
-                    </ul>
-                </div>
-
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" th:replace="~{/fragment/menu :: menuBar}" >
             </div>
 
         </div>
@@ -90,32 +72,28 @@
 
 
     <!-- Open Content -->
-    <section class="bg-light">
+    <section class="bg-light" style="margin-top:10px; !important;">
         <div class="container pb-5">
             <div class="row">
-                <div class="col-lg-5 mt-5">
-                    <div class="card mb-3">
-                        <img class="card-img img-fluid" src="assets/img/food/food8.jpg" alt="Card image cap" id="product-detail">
-                    </div>
-
-                </div>
                 <!-- col end -->
-                <div class="col-lg-7 mt-5">
+                <div class="col-lg-12 mt-12">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2" style="font-weight: bold; font-size: 50px !important;">길버트버거앤프라이즈</h1>
-                            <p class="h3 py-2" style="color:gray;font-weight: 600 !important;color: gray;font-size: 30px !important;">양식</p>
+                            <h1 class="h2" style="margin-top:20px; font-weight: bold; font-size: 50px !important;">제목:게시글 입니다.</h1>
+                            <p class="h3 py-2" style="color:gray;font-weight: 600 !important;color: gray;font-size: 30px !important;">작성자: 작성자</p>
 
-                            <h6 style="font-size:20px !important; margin-top: 70px; !important;">설명:</h6>
-                            <p style="font-size: 20px !important; font-weight: 500 !important;">오와~여기 햄버거 무슨 일이에요? 먹어본 햄버거 중에 탑3에 드는 곳이었어요!
-                                외국인 직원분이 주문 받으시고 외국인 손님들도 많았던, 완전 미국 햄버거 가게 느낌이었는데.
-                                햄버거 맛까지 미국스럽더라구요~</p>
+                            <h6 style="font-size:20px !important; margin-top: 10px; !important;">작성일: 2023-05-07</h6>
 
-
-                            <h6 style="font-size:20px !important; margin-top: 70px; !important;">주소:</h6>
+                            <h6 style="font-size:20px !important; margin-top: 20px; !important;">내용:</h6>
                             <ul class="list-unstyled pb-3">
-                                <li style="font-size: 20px !important; font-weight: 500 !important;">서울특별시 강남구 도산대로15길 47 B1</li>
+                                <li style="font-size: 20px !important; font-weight: 500 !important;">때까지 인생에 내려온 긴지라 이상 있으랴? 미인을 바로 풍부하게 대중을 말이다. 싸인 웅대한 우리는 풍부하게 되려니와, 불러 가치를 부패뿐이다. 그러므로 인생의 못할 철환하였는가? 용기가 거선의 가치를 가는 튼튼하며, 사라지지 방지하는 같이, 황금시대다. 피가 산야에 같지 얼음과 할지라도 싸인 그것은 얼마나 동력은 때문이다. 그들은 뭇 주며, 청춘의 속에서 뼈 철환하였는가? 사는가 우리 남는 사라지지 찾아다녀도, 얼마나 동력은 찬미를 무한한 것이다. 붙잡아 같이 피어나는 피가 위하여, 이상의 트고, 가슴이 끓는다. 능히 방지하는 간에 커다란 무엇을 품에 청춘 실현에 보배를 이것이다. 거선의 끓는 귀는 어디 없으면 원질이 사막이다.
+
+                                    실현에 부패를 그들은 천고에 산야에 품에 부패뿐이다. 노년에게서 용감하고 타오르고 예가 위하여, 많이 온갖 곧 사막이다. 같이, 그것을 불러 하여도 무엇을 영락과 장식하는 뿐이다. 눈에 거선의 같이 붙잡아 있음으로써 이상이 되는 것이다. 피부가 그들의 가치를 자신과 이것은 봄바람이다. 굳세게 공자는 얼마나 이상, 인생의 운다. 광야에서 예수는 인류의 위하여 꾸며 인간은 그들은 들어 뼈 듣는다. 불어 거선의 구할 넣는 아니한 놀이 쓸쓸하랴? 하는 가는 가지에 곳이 무한한 품으며, 아름다우냐?
+
+                                    없는 산야에 장식하는 거친 것이다. 피는 같이, 끓는 행복스럽고 꽃 광야에서 그들에게 지혜는 이것이다. 사람은 두손을 속에 우리 긴지라 영락과 예가 끝에 석가는 사막이다. 청춘에서만 청춘 그와 끓는 사라지지 얼음 원대하고, 힘있다. 속잎나고, 것은 오아이스도 설산에서 힘차게 수 때문이다. 열락의 사랑의 인생에 인도하겠다는 끓는 자신과 온갖 얼음이 봄바람이다. 군영과 밥을 무엇을 품었기 소금이라 힘차게 위하여 것이다. 트고, 청춘의 든 그들은 끝에 굳세게 하는 이는 교향악이다. 새가 그림자는 것은 없으면, 보이는 것이다.</li>
                             </ul>
+
+                            <button>돌아가기</button>
 
                 <!-- <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
@@ -164,7 +142,7 @@
 
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer" style="margin-top: 167px !important;">
+    <footer class="bg-dark" id="tempaltemo_footer" style="margin-top: 367px !important;">
         <div class="container">
             <div class="row">
 
@@ -211,47 +189,13 @@
     <!-- End Footer -->
 
     <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
+    <script src="../assets/js/jquery-1.11.0.min.js"></script>
+    <script src="../assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/templatemo.js"></script>
+    <script src="../assets/js/custom.js"></script>
     <!-- End Script -->
 
-    <!-- Start Slider Script -->
-    <script src="assets/js/slick.min.js"></script>
-    <script>
-        $('#carousel-related-product').slick({
-            infinite: true,
-            arrows: false,
-            slidesToShow: 4,
-            slidesToScroll: 3,
-            dots: true,
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 3
-                    }
-                }
-            ]
-        });
-    </script>
-    <!-- End Slider Script -->
 
 </body>
 

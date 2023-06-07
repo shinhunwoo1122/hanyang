@@ -7,11 +7,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
-    @GetMapping("/")
+    @GetMapping({"/","/main"})
     public ModelAndView Main(){
 
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("index");
+        mView.setViewName("main");
 
         return mView;
     }
@@ -20,7 +20,7 @@ public class MainController {
     public ModelAndView contact(){
 
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("contact");
+        mView.setViewName("community");
 
         return mView;
     }
@@ -29,7 +29,7 @@ public class MainController {
     public ModelAndView about(){
 
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("about");
+        mView.setViewName("index");
 
         return mView;
     }
@@ -38,7 +38,7 @@ public class MainController {
     public ModelAndView shop(){
 
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("shop");
+        mView.setViewName("restaurant");
 
         return mView;
     }
@@ -47,7 +47,7 @@ public class MainController {
     public ModelAndView single(){
 
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("shop-single");
+        mView.setViewName("restaurant-detail");
 
         return mView;
     }
@@ -56,7 +56,7 @@ public class MainController {
     public ModelAndView contentDetail(){
 
         ModelAndView mView = new ModelAndView();
-        mView.setViewName("content-detail");
+        mView.setViewName("community-detail");
 
         return mView;
     }
