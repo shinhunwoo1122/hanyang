@@ -4,10 +4,37 @@ import com.example.project.dto.RestaurantSaveDto;
 import com.example.project.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriUtils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -17,6 +44,10 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
+    @Value("${static.resource.path}")
+    private String staticResourcePath;
+
+    private final ResourceLoader resourceLoader;
 
     @GetMapping("")
     public ModelAndView restaurant(){
@@ -38,6 +69,31 @@ public class RestaurantController {
         return mView;
     }
 
+    @PostMapping("/save")
+    public String restaurantSave(@ModelAttribute @Validated RestaurantSaveDto restaurantSaveDto
+                                 ,BindingResult bindingResult){
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("restaurant");
+
+        if(bindingResult.hasErrors()){ // bindingResult에 걸리는거 없는 경우
+            log.info("error={}", bindingResult);
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+            for(FieldError errorMsg : fieldErrors) {
+                System.out.println("errorMsgCode = " + errorMsg.getField());
+                System.out.println("errorMsg = " + errorMsg.getDefaultMessage());
+            }
+            return "redirect:/restaurant"; // 나중에 등록폼으로 변경 해야 함
+        }
+
+        restaurantService.restaurantSave(restaurantSaveDto);
+
+
+
+        return "redirect:/restaurant";
+    }
+
     @GetMapping("/test")
     @ResponseBody
     public int test(){
@@ -49,14 +105,38 @@ public class RestaurantController {
         return 200;
     }
 
-    /*@PostMapping("/save")
+    @PostMapping("/fileTest")
     @ResponseBody
-    public Integer save(@ModelAttribute RestaurantSaveDto restaurantSaveDto){
+    public void FileSaveTest(HttpServletRequest
+            request, @RequestParam("img") MultipartFile file) throws IOException {
 
 
-        //return new ResponseEntity<>(new ResponseDto);
+        Resource resource = resourceLoader.getResource("classpath:static");
+        String staticPath = resource.getURL().getPath();
 
-    }*/
+        //파일경로
+        String filePath = staticPath + "/uploadFiles/";
+
+        File uploadDir = new File(filePath);
+
+        if(!uploadDir.exists()){
+            uploadDir.mkdirs();
+        }
+
+        System.out.println("filePath = " + filePath);
+
+        String originFileName = file.getOriginalFilename();
+        String ext = originFileName.substring(originFileName.lastIndexOf("."));
+        Long size = file.getSize();
+        String fileSize = String.valueOf(size);
+        String changeName = UUID.randomUUID().toString() + ext;
+
+        //저장할 경로명에 바뀐파일이름 + 확장자 추가해서 넣어준다.
+        file.transferTo(new File(filePath + "\\" + changeName));
+
+
+    }
+
 
 
 

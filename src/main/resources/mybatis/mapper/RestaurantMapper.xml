@@ -8,4 +8,8 @@
         FROM restaurant
     </select>
 
+    <insert id="restaurantSave" parameterType="RestaurantSaveDto">
+        INSERT INTO restaurant (title, category, address, writer, pwd, content) VALUES (#{title}, #{category}, #{address}, #{writer}, #{pwd},#{imgUrl}, #{content})
+    </insert>
+
 </mapper>
