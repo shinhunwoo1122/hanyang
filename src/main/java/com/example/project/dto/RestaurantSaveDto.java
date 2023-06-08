@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 @ToString
 public class RestaurantSaveDto {
 
+    private Integer id;
+
     @NotBlank(message = "식당명을 입력해 주세요.")
     @Size(max = 100, message = "최대 길이가 초과되었습니다.")
     private String title;

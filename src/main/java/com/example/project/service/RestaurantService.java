@@ -4,5 +4,5 @@ import com.example.project.dto.RestaurantSaveDto;
 
 public interface RestaurantService {
     int getCount();
-    boolean restaurantSave(RestaurantSaveDto restaurantSaveDto);
+    boolean restaurantSave(RestaurantSaveDto restaurantSaveDto) throws Exception;
 }

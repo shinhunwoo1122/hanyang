@@ -9,7 +9,34 @@
     </select>
 
     <insert id="restaurantSave" parameterType="RestaurantSaveDto">
-        INSERT INTO restaurant (title, category, address, writer, pwd, content) VALUES (#{title}, #{category}, #{address}, #{writer}, #{pwd},#{imgUrl}, #{content})
+        INSERT INTO restaurant (title
+                            , category
+                            , address
+                            , writer
+                            , pwd
+                            , content)
+        VALUES (#{title}
+                , #{category}
+                , #{address}
+                , #{writer}
+                , #{pwd}
+                , #{content})
+        <selectKey keyProperty="id" order="AFTER" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="restaurantImgSave" parameterType="FileDto">
+        INSERT INTO restaurant_file (orgin_name
+                                , file_size
+                                , file_url
+                                , change_name
+                                , restaurant_id)
+        VALUES (#{orginName}
+                , #{fileSize}
+                , #{fileUrl}
+                , #{changeName}
+                , #{restaurantId})
     </insert>
 
 </mapper>

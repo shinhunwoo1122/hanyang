@@ -4,35 +4,19 @@ import com.example.project.dto.RestaurantSaveDto;
 import com.example.project.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.util.ResourceUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriUtils;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,9 +27,6 @@ import java.util.UUID;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
-
-    @Value("${static.resource.path}")
-    private String staticResourcePath;
 
     private final ResourceLoader resourceLoader;
 
@@ -71,7 +52,7 @@ public class RestaurantController {
 
     @PostMapping("/save")
     public String restaurantSave(@ModelAttribute @Validated RestaurantSaveDto restaurantSaveDto
-                                 ,BindingResult bindingResult){
+                                 ,BindingResult bindingResult) throws Exception{
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("restaurant");
@@ -110,7 +91,6 @@ public class RestaurantController {
     public void FileSaveTest(HttpServletRequest
             request, @RequestParam("img") MultipartFile file) throws IOException {
 
-
         Resource resource = resourceLoader.getResource("classpath:static");
         String staticPath = resource.getURL().getPath();
 
@@ -133,8 +113,6 @@ public class RestaurantController {
 
         //저장할 경로명에 바뀐파일이름 + 확장자 추가해서 넣어준다.
         file.transferTo(new File(filePath + "\\" + changeName));
-
-
     }
 
 

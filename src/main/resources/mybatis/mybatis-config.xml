@@ -6,6 +6,7 @@
 
     <typeAliases>
         <typeAlias alias="RestaurantSaveDto"    type="com.example.project.dto.RestaurantSaveDto"/>
+        <typeAlias alias="FileDto"              type="com.example.project.dto.FileDto"/>
     </typeAliases>
 
 </configuration>
