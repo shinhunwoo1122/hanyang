@@ -1,6 +1,7 @@
 package com.example.project.service.impl;
 
 import com.example.project.dto.FileDto;
+import com.example.project.dto.RestaurantDto;
 import com.example.project.dto.RestaurantSaveDto;
 import com.example.project.mapper.RestaurantMapper;
 import com.example.project.service.RestaurantService;
@@ -89,5 +90,19 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         return isSuccess;
 
+    }
+
+    @Override
+    public RestaurantDto getRestaurant(Integer id) {
+        return restaurantMapper.getRestaurant(id);
+    }
+
+    @Override
+    public boolean passwordCheck(Integer id, String pwd) {
+        //식당등록시 생긴 암호화된 비밀번호 조회
+        String encodePwd = restaurantMapper.getEncodePwd(id);
+        //단방향 암호 Sha512일치 여부 조회함
+        boolean valid = passwordEncoder.matches(pwd,encodePwd);
+        return valid;
     }
 }

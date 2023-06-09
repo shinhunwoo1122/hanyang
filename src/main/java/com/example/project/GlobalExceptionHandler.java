@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
+   /* @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleQueryException(ReflectionException ex){
         log.error("오류 발생: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("BAD_REQUEST");
-    }
+    }*/
 }

@@ -39,4 +39,27 @@
                 , #{restaurantId})
     </insert>
 
+    <select id="getRestaurant" parameterType="Integer" resultType="RestaurantDto">
+        SELECT r.title AS title
+             ,(CASE WHEN category = 1 THEN '한식'
+                    WHEN category = 2 THEN '중식'
+                    WHEN category = 3 THEN '일식'
+                    WHEN category = 4 THEN '양식'
+                    ELSE '기타' END) AS categoryName
+             ,r.address AS address
+             ,r.writer AS writer
+             ,r.content AS content
+             ,f.orgin_name AS orgImgName
+             ,f.file_url AS fileUrl
+        FROM restaurant AS r
+        JOIN restaurant_file AS f ON r.id = f.restaurant_id
+        WHERE r.id = 4
+    </select>
+
+    <select id="getEncodePwd" parameterType="Integer" resultType="String">
+        SELECT pwd
+        FROM restaurant
+        WHERE id = 4
+    </select>
+
 </mapper>

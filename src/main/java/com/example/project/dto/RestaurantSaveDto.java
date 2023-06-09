@@ -34,7 +34,7 @@ public class RestaurantSaveDto {
     private String writer;
 
     @NotBlank(message = "비밀번호를 입력해 주세요.")
-    @Size(max = 255, message = "최대 길이가 초과되었습니다.")
+    @Size(min = 4, max = 255, message = "비밀번호 길이가 유효하지 않습니다")
     private String pwd;
 
     @NotBlank(message = "내용을 입력해 주세요.")
