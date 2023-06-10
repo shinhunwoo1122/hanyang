@@ -34,6 +34,9 @@ body, ul, li, p, a, label, input, div {
   font-size: 18px !important;
   font-weight: 300 !important;
 }
+.card-body{
+  border: 1px solid #c4c4c4 !important;
+}
 .h1 {
   font-family: 'Roboto', sans-serif;
   font-size: 48px !important;
@@ -55,7 +58,7 @@ body, ul, li, p, a, label, input, div {
 .text-success { color: #ff9800 !important;}
 .text-light { color: #cfd6e1 !important;}
 .bg-dark { background-color: #212934 !important;}
-.bg-light { background-color: #e9eef5 !important;}
+.bg-light { background-color: white !important;}
 .bg-black { background-color: #1d242d !important;}
 .bg-success { background-color: #ff9800 !important;}
 .btn-success {

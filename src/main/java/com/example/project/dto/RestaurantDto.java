@@ -15,5 +15,6 @@ public class RestaurantDto {
     private String writer;
     private String content;
     private String orgImgName;
+    private String changeName;
     private String fileUrl;
 }

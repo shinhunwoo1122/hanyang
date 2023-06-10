@@ -50,10 +50,12 @@
              ,r.writer AS writer
              ,r.content AS content
              ,f.orgin_name AS orgImgName
+             ,f.change_name AS changeName
              ,f.file_url AS fileUrl
         FROM restaurant AS r
         JOIN restaurant_file AS f ON r.id = f.restaurant_id
         WHERE r.id = 4
+        AND f.status = 'Y'
     </select>
 
     <select id="getEncodePwd" parameterType="Integer" resultType="String">
@@ -61,5 +63,18 @@
         FROM restaurant
         WHERE id = 4
     </select>
+
+    <update id="fileEditStatus" parameterType="Integer">
+        UPDATE restaurant_file SET status = 'N'
+        WHERE restaurant_id = #{id}
+    </update>
+
+    <update id="restaurantEdit" parameterType="RestaurantEditDto">
+        UPDATE restaurant SET title = #{title}
+                            ,category = #{category}
+                            ,address = #{address}
+                            ,content = #{content}
+        WHERE id = #{id}
+    </update>
 
 </mapper>
