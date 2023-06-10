@@ -78,7 +78,7 @@
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="../assets/img/food/food8.jpg" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" th:src="${restaurantDto.getFileUrl()}" alt="Card image cap" id="product-detail">
                     </div>
 
                 </div>
@@ -86,18 +86,21 @@
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2" style="font-weight: bold; font-size: 50px !important;">길버트버거앤프라이즈</h1>
-                            <p class="h3 py-2" style="color:gray;font-weight: 600 !important;color: gray;font-size: 30px !important;">양식</p>
+                            <h1 class="h2" style="font-weight: bold; font-size: 50px !important;" th:text="${restaurantDto.getTitle()}"></h1>
+                            <p class="h3 py-2" style="color:gray;font-weight: 600 !important;color: gray;font-size: 30px !important;" th:text="${restaurantDto.getCategoryName()}"></p>
 
                             <h6 style="font-size:20px !important; margin-top: 70px; !important;">설명:</h6>
-                            <p style="font-size: 20px !important; font-weight: 500 !important;">오와~여기 햄버거 무슨 일이에요? 먹어본 햄버거 중에 탑3에 드는 곳이었어요!
-                                외국인 직원분이 주문 받으시고 외국인 손님들도 많았던, 완전 미국 햄버거 가게 느낌이었는데.
-                                햄버거 맛까지 미국스럽더라구요~</p>
+                            <p style="font-size: 20px !important; font-weight: 500 !important;" th:text="${restaurantDto.getContent()}"></p>
 
 
                             <h6 style="font-size:20px !important; margin-top: 70px; !important;">주소:</h6>
                             <ul class="list-unstyled pb-3">
-                                <li style="font-size: 20px !important; font-weight: 500 !important;">서울특별시 강남구 도산대로15길 47 B1</li>
+                                <li style="font-size: 20px !important; font-weight: 500 !important;" th:text="${restaurantDto.getAddress()}"></li>
+                            </ul>
+
+                            <h6 style="font-size:20px !important; margin-top: 70px; !important;">작성자:</h6>
+                            <ul class="list-unstyled pb-3">
+                                <li style="font-size: 20px !important; font-weight: 500 !important;" th:text="${restaurantDto.getWriter()}"></li>
                             </ul>
 
                 <!-- <form action="" method="GET">

@@ -38,9 +38,16 @@ public class RestaurantController {
     private final ResourceLoader resourceLoader;
 
     @GetMapping("")
-    public ModelAndView restaurant(@RequestParam String message){
+    public ModelAndView restaurant(@RequestParam(defaultValue = "") String message
+                                  ,@RequestParam(defaultValue = "0") Integer category){
         ModelAndView mView = new ModelAndView();
+        List<RestaurantDto> list = restaurantService.getRestaurants(category);
+
         mView.setViewName("restaurant");
+        if(message.equals("success")){
+            mView.addObject("message","등록이 정상적으로 처리되었습니다.");
+        }
+        mView.addObject("list", list);
 
         return mView;
     }
@@ -48,6 +55,8 @@ public class RestaurantController {
     @GetMapping("/{id}")
     public ModelAndView restaurantDetail(@PathVariable Integer id){
         RestaurantDto restaurantDto = restaurantService.getRestaurant(id);
+        restaurantDto.setFileUrl("../"+restaurantDto.getFileUrl());
+        System.out.println("restaurantDto = " + restaurantDto);
 
         ModelAndView mView = new ModelAndView();
         mView.setViewName("restaurant-detail");
@@ -78,7 +87,6 @@ public class RestaurantController {
             bindingResult.addError(new ObjectError("imgNotEmpty", "썸네일 이미지를 등록해주세요."));
         }
 
-
         if(bindingResult.hasErrors()){
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
 
@@ -90,8 +98,7 @@ public class RestaurantController {
         }
 
         restaurantService.restaurantSave(restaurantSaveDto);
-        redirectAttributes.addFlashAttribute("message", "success");
-        return "redirect:/restaurant";
+        return "redirect:/restaurant?message=success";
     }
 
     @PostMapping("/pwd-check")

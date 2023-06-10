@@ -6,6 +6,8 @@ import com.example.project.dto.RestaurantEditDto;
 import com.example.project.dto.RestaurantSaveDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface RestaurantMapper {
     int getCount();
@@ -13,8 +15,7 @@ public interface RestaurantMapper {
     void restaurantImgSave(FileDto fileDto);
     RestaurantDto getRestaurant(Integer id);
     String getEncodePwd(Integer id);
-
     void fileEditStatus(Integer id);
-
     void restaurantEdit(RestaurantEditDto restaurantEditDto);
+    List<RestaurantDto> getRestaurants(Integer category);
 }

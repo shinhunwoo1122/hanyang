@@ -54,14 +54,14 @@
              ,f.file_url AS fileUrl
         FROM restaurant AS r
         JOIN restaurant_file AS f ON r.id = f.restaurant_id
-        WHERE r.id = 4
+        WHERE r.id = #{id}
         AND f.status = 'Y'
     </select>
 
     <select id="getEncodePwd" parameterType="Integer" resultType="String">
         SELECT pwd
         FROM restaurant
-        WHERE id = 4
+        WHERE id = #{id}
     </select>
 
     <update id="fileEditStatus" parameterType="Integer">
@@ -76,5 +76,30 @@
                             ,content = #{content}
         WHERE id = #{id}
     </update>
+
+    <select id="getRestaurants" parameterType="Integer" resultType="RestaurantDto">
+        SELECT   r.id AS id
+                ,r.title AS title
+                ,(CASE WHEN category = 1 THEN '한식'
+                       WHEN category = 2 THEN '중식'
+                       WHEN category = 3 THEN '일식'
+                       WHEN category = 4 THEN '양식'
+                       ELSE '기타' END) AS categoryName
+                ,r.address AS address
+                ,r.writer AS writer
+                ,r.content AS content
+                ,f.orgin_name AS orgImgName
+                ,f.change_name AS changeName
+                ,f.file_url AS fileUrl
+        FROM restaurant AS r
+        JOIN restaurant_file AS f ON r.id = f.restaurant_id
+        <where>
+            <if test="_parameter != 0">
+                AND r.category = #{category}
+            </if>
+                AND f.status = 'Y'
+        </where>
+        ORDER BY id DESC
+    </select>
 
 </mapper>

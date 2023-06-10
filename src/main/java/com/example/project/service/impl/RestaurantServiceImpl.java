@@ -19,6 +19,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -142,5 +145,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
         //식당 정보 업데이트 처리
         restaurantMapper.restaurantEdit(restaurantEditDto);
+    }
+
+    @Override
+    public List<RestaurantDto> getRestaurants(Integer category) {
+        return restaurantMapper.getRestaurants(category);
     }
 }

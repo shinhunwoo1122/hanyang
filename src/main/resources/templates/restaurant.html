@@ -108,35 +108,34 @@
                             종목
                             <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
-                        <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">전체</a></li>
-                            <li><a class="text-decoration-none" href="#">한식</a></li>
-                            <li><a class="text-decoration-none" href="#">중식</a></li>
-                            <li><a class="text-decoration-none" href="#">일식</a></li>
-                            <li><a class="text-decoration-none" href="#">양식</a></li>
-                            <li><a class="text-decoration-none" href="#">기타</a></li>
+                        <ul class="collapse show list-unstyled pl-3 categoryTag">
+                            <li><a class="text-decoration-none" id="0">전체</a></li>
+                            <li><a class="text-decoration-none" id="1">한식</a></li>
+                            <li><a class="text-decoration-none" id="2">중식</a></li>
+                            <li><a class="text-decoration-none" id="3">일식</a></li>
+                            <li><a class="text-decoration-none" id="4">양식</a></li>
+                            <li><a class="text-decoration-none" id="5">기타</a></li>
                         </ul>
                     </li>
                 </ul>
                 <button class="btn btn-dark" th:onclick="|location.href='@{/restaurant/save-form}'|">식당등록</button>
             </div>
-
             <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4" th:each="list : ${list}">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food1.jpg">
+                                <img class="card-img rounded-0 img-fluid foodImg" th:src="${list.getFileUrl()}">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" th:href="@{/restaurant/{id}(id = ${list.getId()})}"><i class="far fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">구일가든</a>
+                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font" th:text="${list.getTitle()}"></a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">한식</li>
+                                    <li class="category-font" th:text="${list.getCategoryName()}">한식</li>
                                     <li class="pt-2">
                                         <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
@@ -145,231 +144,10 @@
                                         <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                     </li>
                                 </ul>
-                                <p class="text-center mb-0 address-font">경기도 광주시 곤지암읍 광여로4번길 10</p>
+                                <p class="text-center mb-0 address-font" th:text="${list.getAddress()}"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food9.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">가미분식</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">한식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 address-font">지번 서울시 서대문구 대현동 54-1</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food2.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">이학막국수</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">한식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">경기도 고양시 일산동구 풍산로 73 1F</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food3.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">흙토담골</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">한식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">경기도 광주시 퇴촌면 석둔길 3</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food4.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">엘리스리틀이태리</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">양식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">서울특별시 마포구 백범로 152 201동 1F</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food5.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">파델라</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">양식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">서울특별시 마포구 연남로1길 11 1F</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food6.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">시키카츠</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">일식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">서울특별시 중구 다산로42나길 14 1F</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food7.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">스시소라</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">일식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">서울특별시 종로구 종로 19 르메이에르종로타운 B동 B116 B-1호</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid foodImg" src="assets/img/food/food8.jpg">
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white mt-2" href="restaurant-detail.html"><i class="far fa-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="restaurant-detail.html" class="h3 text-decoration-none main-food-font">길버트버거앤프라이즈</a>
-                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li class="category-font">양식</li>
-                                    <li class="pt-2">
-                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                    </li>
-                                </ul>
-                                <p class="text-center mb-0 category-font address-font">서울특별시 강남구 도산대로15길 47 B1</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div div="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
 
@@ -431,7 +209,15 @@
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
     <script th:if="${message}">
-        alert([[${massage}]]);  // JavaScript alert을 띄우는 코드
+        alert("[[${message}]]");  // JavaScript alert을 띄우는 코드
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".categoryTag").find("li").click(function(){
+                let id =$(this).find('a').attr("id");
+                location.href="/restaurant?category="+id;
+            })
+        })
     </script>
     <!-- End Script -->
 </body>
