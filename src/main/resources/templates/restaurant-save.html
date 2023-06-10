@@ -13,7 +13,12 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
-
+    <style>
+        .field-error{
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 
 <body>
@@ -80,46 +85,95 @@
                 <div class="col-lg-12 mt-12" style="margin-top:100px;">
                     <div class="card">
                         <div class="card-body">
-                            <form>
+                            <form th:action="@{/restaurant/save}" th:object="${restaurantSaveDto}" method="post" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="exampleInputTitle" class="form-label">식당이름</label>
-                                    <input type="text" class="form-control" id="exampleInputTitle" name="title" aria-describedby="titleHelp">
+                                    <input type="text" class="form-control" id="exampleInputTitle" th:field="*{title}" aria-describedby="titleHelp"
+                                           th:errorclass="field-error"
+                                           placeholder="식당명을 입력해주세요"
+                                    >
+                                    <div class="field-error" th:errors="*{title}">
+                                        식당명 오류
+                                    </div>
                                    <!-- <div id="titleHelp" class="form-text">식당명을 입력해주세요.</div>-->
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleCategoryTitle" class="form-label">카테고리</label>
-                                    <select class="form-select form-select-lg" id="exampleCategoryTitle" aria-label=".form-select-sm example">
-                                        <option selected>선택</option>
+                                    <select class="form-select form-select-lg" id="exampleCategoryTitle" th:field="*{category}" aria-label=".form-select-sm example"
+                                            th:errorclass="field-error"
+                                    >
+                                        <option value="" selected>선택</option>
                                         <option value="1">한식</option>
                                         <option value="2">중식</option>
                                         <option value="3">일식</option>
                                         <option value="4">양식</option>
                                         <option value="5">기타</option>
                                     </select>
+                                    <div class="field-error" th:errors="*{category}">
+                                        카테고리 선택 오류
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputAddress" class="form-label">주소</label>
-                                    <input type="text" class="form-control" id="exampleInputAddress" name="title" aria-describedby="titleHelp">
+                                    <input type="text" class="form-control" id="exampleInputAddress" th:field="*{address}" aria-describedby="titleHelp"
+                                           th:errorclass="field-error"
+                                           placeholder="주소를 입력해주세요"
+                                    >
+                                    <div class="field-error" th:errors="*{address}">
+                                        주소명 오류
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{content}"
+                                              th:errorclass="field-error"
+                                              placeholder="내용을 입력해주세요"
+                                    ></textarea>
+                                    <div class="field-error" th:errors="*{content}">
+                                        내용입력 오류
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">비밀번호</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <input type="password" class="form-control" th:field="*{pwd}" id="exampleInputPassword1"
+                                           th:errorclass="field-error"
+                                           placeholder="비밀번호를 입력하세요"
+                                    >
+                                    <div class="field-error" th:errors="*{pwd}">
+                                        비밀번호 입력 오류
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword2" class="form-label">비밀번호 확인</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword2">
+                                    <input type="password" class="form-control" id="exampleInputPassword2" th:field="*{pwdCheck}"
+                                           th:errorclass="field-error"
+                                           placeholder="비밀번호를 입력하세요"
+                                    >
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputWriter" class="form-label">작성자</label>
-                                    <input type="text" class="form-control" id="exampleInputWriter" name="title">
+                                    <input type="text" class="form-control" id="exampleInputWriter" th:field="*{writer}"
+                                           th:errorclass="field-error"
+                                           placeholder="작성자명을 입력하세요"
+                                    >
+                                    <div class="field-error" th:errors="*{writer}">
+                                        작성자명 오류
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="formFile" class="form-label">이미지</label>
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" id="formFile" th:field="*{file}"
+                                           th:errorclass="field-error"
+                                           placeholder="파일을 선택 하세요"
+                                    >
+                                    <div class="field-error" th:errors="*{file}">
+                                        파일 선택 오류
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div th:if="${#fields.hasGlobalErrors()}">
+                                        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">공통 검증 오류</p>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-dark">등록</button>
                                 <button type="button" class="btn btn-secondary" onclick="history.back()">돌아가기</button>

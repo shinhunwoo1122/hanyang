@@ -12,12 +12,15 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -35,7 +38,7 @@ public class RestaurantController {
     private final ResourceLoader resourceLoader;
 
     @GetMapping("")
-    public ModelAndView restaurant(){
+    public ModelAndView restaurant(@RequestParam String message){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("restaurant");
 
@@ -57,12 +60,24 @@ public class RestaurantController {
     public ModelAndView restaurantSaveForm(){
         ModelAndView mView = new ModelAndView();
         mView.setViewName("restaurant-save");
+        mView.addObject("restaurantSaveDto",new RestaurantSaveDto());
         return mView;
     }
 
     @PostMapping("/save")
     public String restaurantSave(@ModelAttribute @Validated RestaurantSaveDto restaurantSaveDto
-                                 ,BindingResult bindingResult) throws Exception{
+                                 , BindingResult bindingResult, Model model
+                                 , RedirectAttributes redirectAttributes) throws Exception{
+
+        //복합룰 적용
+        if(!restaurantSaveDto.getPwd().equals(restaurantSaveDto.getPwdCheck())){
+            bindingResult.addError(new ObjectError("passwordCheckError", "비밀번호가 일치하지 않습니다."));
+        }
+
+        if(restaurantSaveDto.getFile().getSize() == 0){
+            bindingResult.addError(new ObjectError("imgNotEmpty", "썸네일 이미지를 등록해주세요."));
+        }
+
 
         if(bindingResult.hasErrors()){
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -71,10 +86,11 @@ public class RestaurantController {
                 System.out.println("errorMsgCode = " + errorMsg.getField());
                 System.out.println("errorMsg = " + errorMsg.getDefaultMessage());
             }
-            return "redirect:/restaurant"; // 나중에 등록폼으로 변경 해야 함
+            return "restaurant-save";
         }
 
         restaurantService.restaurantSave(restaurantSaveDto);
+        redirectAttributes.addFlashAttribute("message", "success");
         return "redirect:/restaurant";
     }
 
