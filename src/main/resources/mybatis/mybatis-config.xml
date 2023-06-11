@@ -9,6 +9,11 @@
         <typeAlias alias="FileDto"              type="com.example.project.dto.FileDto"/>
         <typeAlias alias="RestaurantDto"        type="com.example.project.dto.RestaurantDto"/>
         <typeAlias alias="RestaurantEditDto"    type="com.example.project.dto.RestaurantEditDto"/>
+        <typeAlias alias="CommunitySaveDto"     type="com.example.project.dto.CommunitySaveDto"/>
+        <typeAlias alias="CommunityDto"         type="com.example.project.dto.CommunityDto"/>
+        <typeAlias alias="CommunitySearchDto"   type="com.example.project.dto.CommunitySearchDto"/>
+        <typeAlias alias="CommunityEditDto"   type="com.example.project.dto.CommunityEditDto"/>
+        <typeAlias alias="PasswordCheckDto"     type="com.example.project.dto.PasswordCheckDto"/>
     </typeAliases>
 
 </configuration>

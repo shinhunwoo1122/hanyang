@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.project.mapper.CommunityMapper">
+    <select id="communitySave" parameterType="CommunitySaveDto">
+        INSERT INTO community(subjects
+                        , content
+                        , pwd
+                        , writer)
+        VALUES(#{subject}
+             , #{content}
+             , #{pwd}
+             , #{writer})
+    </select>
+
+    <select id="getCommunityCount" parameterType="CommunitySearchDto" resultType="Integer">
+        SELECT count(*) AS totalROw
+        FROM community
+        WHERE status = 'Y'
+    </select>
+
+    <select id="getCommunityList" parameterType="CommunitySearchDto" resultType="CommunityDto">
+        SELECT id AS id
+            , subjects AS subject
+            , DATE_FORMAT(regdate, "%Y-%m-%d") AS regdate
+            , writer AS writer
+        FROM community
+        WHERE status = 'Y'
+        ORDER BY id ASC
+        LIMIT #{start}, #{length}
+    </select>
+
+    <select id="getCommunityPwd" parameterType="PasswordCheckDto" resultType="String">
+        SELECT pwd
+        FROM community
+        WHERE id = #{id}
+    </select>
+
+    <update id="deleteCommunity" parameterType="Integer">
+        UPDATE community SET status = 'N'
+        WHERE id = #{id}
+    </update>
+
+    <select id="getCommunity" parameterType="Integer" resultType="CommunityDto">
+        SELECT id AS id
+             , subjects AS subject
+             , content AS content
+             , DATE_FORMAT(regdate, "%Y-%m-%d") AS regdate
+             , writer AS writer
+        FROM community
+        WHERE id = #{id}
+    </select>
+
+    <update id="communityEdit" parameterType="CommunityEditDto">
+        UPDATE community SET subjects = #{subject}
+                           , content = #{content}
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>

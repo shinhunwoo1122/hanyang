@@ -6,14 +6,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/templatemo.css">
-    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/templatemo.css">
+    <link rel="stylesheet" href="../../assets/css/custom.css">
 
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
-
+    <link rel="stylesheet" href="../../assets/css/fontawesome.min.css">
+    <style>
+        .field-error{
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,7 +50,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" th:replace="~{/fragment/menu :: menuBar}" >
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav" th:replace="~{/fragment/menu :: menuBar}">
+
             </div>
 
         </div>
@@ -72,25 +78,43 @@
 
 
     <!-- Open Content -->
-    <section class="bg-light" style="margin-top:10px; !important;">
+    <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
                 <!-- col end -->
-                <div class="col-lg-12 mt-12">
+                <div class="col-lg-12 mt-12" style="margin-top:100px;">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2" style="margin-top:20px; font-weight: bold; font-size: 50px !important;">제목:<span th:text="${communityDto.getSubject()}"></span></h1>
-                            <p class="h3 py-2" style="color:gray;font-weight: 600 !important;color: gray;font-size: 30px !important;">작성자: <span th:text="${communityDto.getWriter()}">작성자</span></p>
-
-                            <h6 style="font-size:20px !important; margin-top: 10px; !important;">작성일: <span th:text="${communityDto.getRegdate()}"></span></h6>
-
-                            <h6 style="font-size:20px !important; margin-top: 20px; !important;">내용:</h6>
-                            <ul class="list-unstyled pb-3">
-                                <li style="font-size: 20px !important; font-weight: 500 !important;" ><span th:text="${communityDto.getContent()}"></span></li>
-                            </ul>
-
-                            <button onclick="history.back()">돌아가기</button>
-
+                            <form th:action th:object="${communityDto}" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="exampleInputTitle" class="form-label">제목</label>
+                                    <input type="text" class="form-control" id="exampleInputTitle" th:field="*{subject}" aria-describedby="titleHelp"
+                                           th:errorclass="field-error"
+                                           placeholder="제목을 입력해주세요"
+                                    >
+                                    <div class="field-error" th:errors="*{subject}">
+                                        식당명 오류
+                                    </div>
+                                   <!-- <div id="titleHelp" class="form-text">식당명을 입력해주세요.</div>-->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{content}"
+                                              th:errorclass="field-error"
+                                              placeholder="내용을 입력해주세요"
+                                    ></textarea>
+                                    <div class="field-error" th:errors="*{content}">
+                                        내용입력 오류
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div th:if="${#fields.hasGlobalErrors()}">
+                                        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">공통 검증 오류</p>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-dark">등록</button>
+                                <button type="button" class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -102,7 +126,7 @@
 
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer" style="margin-top: 367px !important;">
+    <footer class="bg-dark" id="tempaltemo_footer" style="margin-top: 167px !important;">
         <div class="container">
             <div class="row">
 
@@ -149,12 +173,17 @@
     <!-- End Footer -->
 
     <!-- Start Script -->
-    <script src="../assets/js/jquery-1.11.0.min.js"></script>
-    <script src="../assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/templatemo.js"></script>
-    <script src="../assets/js/custom.js"></script>
+    <script src="../../assets/js/jquery-1.11.0.min.js"></script>
+    <script src="../../assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/templatemo.js"></script>
+    <script src="../../assets/js/custom.js"></script>
     <!-- End Script -->
+    <script th:if="${message}">
+        alert("[[${message}]]");  // JavaScript alert을 띄우는 코드
+    </script>
+
+    <!-- Start Slider Script -->
 
 
 </body>

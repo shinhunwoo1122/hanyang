@@ -5,15 +5,17 @@
     <title>H202046035(졸업 프로젝트)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/templatemo.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
-
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
-
+    <style>
+        .field-error{
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 
 <body>
@@ -103,47 +105,51 @@
                                 <li style="font-size: 20px !important; font-weight: 500 !important;" th:text="${restaurantDto.getWriter()}"></li>
                             </ul>
 
-                <!-- <form action="" method="GET">
-                                <input type="hidden" name="product-title" value="Activewear">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
-                                            <li class="list-inline-item">Size :
-                                                <input type="hidden" name="product-size" id="product-size" value="S">
-                                            </li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
-                                            <li class="list-inline-item text-right">
-                                                Quantity
-                                                <input type="hidden" name="product-quanity" id="product-quanity" value="1">
-                                            </li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
-                                    </div>
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </form>
--->
+                            <div style="text-align: right !important;">
+                                <button class="btn-light" onclick="history.back()">돌아가기</button>
+                                <button class="btn-dark"
+                                        th:id="${restaurantDto.getId()}"
+                                        th:onclick="editRestaurantModal(this.getAttribute('id'))">수정</button>
+                                <button class="btn-danger"
+                                        th:id="${restaurantDto.getId()}"
+                                        th:onclick="removeRestaurantModal(this.getAttribute('id'))">삭제</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordModalLabel">비밀번호 검증 폼</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12 mt-12">
+                            <div class="mb-3">
+                                <form>
+                                    <label for="passwodCheck" class="form-label">게시글 비밀번호</label>
+                                    <input type="password" class="form-control" id="passwodCheck">
+                                    <input type="hidden" id="id" value="">
+                                    <input type="hidden" id="type" value="">
+                                    <div class="field-error">
+                                        <span id="errText"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="passwordCheck()">전송하기</button>
+                        <button type="button" class="btn btn-dark" onclick="removeModel()">돌아가기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <!-- End Article -->
@@ -205,6 +211,95 @@
     <!-- End Script -->
 
     <!-- Start Slider Script -->
+
+    <script>
+
+        function removeRestaurantModal(id){
+            let result = confirm('정말로 해당글을 삭제하시겠습니까?');
+            if(result) {
+                $('#passwordModal').modal({backdrop: 'static', keyboard: false});
+                $('#passwordModal').modal('show');
+                $('#id').val(id);
+                $('#type').val('delete');
+            } else {
+                return false;
+            }
+        }
+
+        function editRestaurantModal(id){
+            $('#passwordModal').modal({backdrop: 'static', keyboard: false});
+            $('#passwordModal').modal('show');
+            $('#id').val(id);
+            $('#type').val('edit');
+        }
+
+        function removeModel(){
+            $('#passwordModal').modal('hide');
+        }
+        $('.modal').on('hidden.bs.modal', function (e) {
+            $('#passwodCheck').removeClass('field-error');
+            $('#errText').text('');
+            $(this).find('form')[0].reset();
+        })
+
+
+        function passwordCheck(){
+            let id = $('#id').val();
+            let pwd = $('#passwodCheck').val();
+            let type = $('#type').val();
+            $.ajax({
+                type: "post",
+                url: "/restaurant/password-check",
+                data: {"id": id,
+                    "pwd": pwd},
+                dataType: "json",
+                async:false
+            }).done(res => {
+                console.log('전송성공');
+                console.log(res);
+                if(res.status != 200){
+                    $('#passwodCheck').addClass('field-error');
+                    $('#errText').text(res.message);
+                }else{
+                    $('#passwodCheck').removeClass('field-error');
+                    $('#errText').text('');
+                    if(type == 'delete'){
+                        deleteRestaurant(id);
+                    }else{
+                        location.href="/restaurant/edit/" + id;
+                    }
+                }
+            }).fail(error => {
+                if(error.responseJSON.data == null){
+                    alert(error.responseJSON.message);
+                }else{
+                    alert(JSON.stringify(error.responseJSON.data));
+                }
+            });
+        }
+        function deleteRestaurant(id){
+            $.ajax({
+                type: "patch",
+                url: "/restaurant/delete-restaurant",
+                data: {"id": id},
+                dataType: "json",
+                async:false
+            }).done(res => {
+                console.log('전송성공');
+                console.log(res);
+                alert('게시글 삭제 완료');
+                location.href="/restaurant";
+            }).fail(error => {
+                if(error.responseJSON.data == null){
+                    alert(error.responseJSON.message);
+                }else{
+                    alert(JSON.stringify(error.responseJSON.data));
+                }
+            });
+        }
+
+    </script>
+
 
 
 </body>

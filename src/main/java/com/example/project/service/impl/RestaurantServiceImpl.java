@@ -1,15 +1,13 @@
 package com.example.project.service.impl;
 
-import com.example.project.dto.FileDto;
-import com.example.project.dto.RestaurantDto;
-import com.example.project.dto.RestaurantEditDto;
-import com.example.project.dto.RestaurantSaveDto;
+import com.example.project.dto.*;
 import com.example.project.mapper.RestaurantMapper;
 import com.example.project.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,21 +32,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final PasswordEncoder passwordEncoder;
 
     private final ResourceLoader resourceLoader;
-
-    @Override
-    public int getCount() {
-
-        int count = restaurantMapper.getCount();
-
-        String pwd = "1234G";
-        String encodePwd = passwordEncoder.encode(pwd);
-
-        log.info("encodingPwd={}", encodePwd);
-        log.info("비밀번호확인={}", passwordEncoder.matches(pwd,encodePwd));
-        log.info("비밀번호일부러틀리게={}",passwordEncoder.matches("1234C",encodePwd));
-
-        return 0;
-    }
 
     @Override
     @Transactional
@@ -97,19 +80,23 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantMapper.getRestaurant(id);
     }
 
-    @Override
+   /* @Override
     public boolean passwordCheck(Integer id, String pwd) {
         //식당등록시 생긴 암호화된 비밀번호 조회
-        String encodePwd = restaurantMapper.getEncodePwd(id);
+        //String encodePwd = restaurantMapper.getEncodePwd(id);
         //단방향 암호 Sha512일치 여부 조회함
-        boolean valid = passwordEncoder.matches(pwd,encodePwd);
-        return valid;
-    }
+        //boolean valid = passwordEncoder.matches(pwd,encodePwd);
+       // return valid;
+    }*/
 
     @Override
-    public void restaurantEdit(RestaurantEditDto restaurantEditDto) throws Exception {
+    public void restaurantEdit(Integer id, RestaurantEditDto restaurantEditDto) throws Exception {
+        restaurantEditDto.setId(id);
         MultipartFile file = restaurantEditDto.getFile();
         //파일이 비어있지 않은 경우임 수정시 비어있는 경우 파일유지 추가된경우 변경된 사항
+
+        System.out.println("file.isEmpty() = " + file.isEmpty());
+
         if(!file.isEmpty()){
             //기존 파일 저장 DB상태 값 변경함, delete대신 update사용
             restaurantMapper.fileEditStatus(restaurantEditDto.getId());
@@ -119,13 +106,27 @@ public class RestaurantServiceImpl implements RestaurantService {
             //파일삭제 실패시 GlobalExceptionHandler Handler 오류 log처리
             Resource resource = resourceLoader.getResource("classpath:static");
             String staticPath = resource.getURL().getPath();
-            String path = staticPath + "/uploadFiles/";
+            String filePath = staticPath + "/uploadFiles/";
 
-            Path filePath = Paths.get(path + restaurantEditDto.getChangeName());
-            Files.delete(filePath);
+            log.info("filePath={}", filePath);
+
+            File orgFile = new File(filePath + restaurantEditDto.getChangeName());
+            if(orgFile.exists()){
+                if(orgFile.delete()){
+                    log.info("파일삭제 완료");
+                }else{
+                    log.info("파일삭제 실패");
+                }
+            }else{
+                log.info("파일이 존재하지 않습니다.");
+            }
+
 
             //변경된 이미지 저장 처리
             String originFileName = file.getOriginalFilename();
+
+            System.out.println("originFileName = " + originFileName);
+
             String ext = originFileName.substring(originFileName.lastIndexOf("."));
             Long size = file.getSize();
             String fileSize = String.valueOf(size);
@@ -150,5 +151,44 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<RestaurantDto> getRestaurants(Integer category) {
         return restaurantMapper.getRestaurants(category);
+    }
+
+    @Override
+    public ResponseDto passwordCheck(PasswordCheckDto passwordCheckDto) {
+
+        String password = passwordCheckDto.getPwd();
+        ResponseDto<Boolean> responseDto = new ResponseDto<>();
+        Boolean valid = false;
+
+        if(password.isBlank()){ //비밀번호 미 입력시 바로 돌려보냄
+            log.info("비밀번호 미 입력");
+            responseDto.setMessage("비밀번호를 입력해 주세요.");
+            responseDto.setStatus(HttpStatus.BAD_REQUEST.value());
+            responseDto.setData(valid);
+            return responseDto;
+        }
+
+        //식당등록시 생긴 암호화된 비밀번호 조회
+        String encodePwd = restaurantMapper.getEncodePwd(passwordCheckDto);
+
+        valid = passwordEncoder.matches(passwordCheckDto.getPwd(), encodePwd);
+
+        if(valid){
+            responseDto.setMessage("비밀번호 정상 확인");
+            responseDto.setStatus(HttpStatus.OK.value());
+            responseDto.setData(valid);
+        }else{
+            log.info("비밀번호 미 일치");
+            responseDto.setMessage("비밀번호가 일치하지 않습니다.");
+            responseDto.setStatus(HttpStatus.BAD_REQUEST.value());
+            responseDto.setData(valid);
+        }
+
+        return responseDto;
+    }
+
+    @Override
+    public void deleteRestaurant(Integer id) {
+        restaurantMapper.deleteRestaurant(id);
     }
 }

@@ -40,12 +40,14 @@
     </insert>
 
     <select id="getRestaurant" parameterType="Integer" resultType="RestaurantDto">
-        SELECT r.title AS title
+        SELECT r.id AS id
+             ,r.title AS title
              ,(CASE WHEN category = 1 THEN '한식'
                     WHEN category = 2 THEN '중식'
                     WHEN category = 3 THEN '일식'
                     WHEN category = 4 THEN '양식'
                     ELSE '기타' END) AS categoryName
+             ,r.category AS category
              ,r.address AS address
              ,r.writer AS writer
              ,r.content AS content
@@ -53,12 +55,13 @@
              ,f.change_name AS changeName
              ,f.file_url AS fileUrl
         FROM restaurant AS r
-        JOIN restaurant_file AS f ON r.id = f.restaurant_id
+        JOIN restaurant_file AS f ON r.id = f.restaurant_id AND r.status = f.status
         WHERE r.id = #{id}
+        AND r.status = 'Y'
         AND f.status = 'Y'
     </select>
 
-    <select id="getEncodePwd" parameterType="Integer" resultType="String">
+    <select id="getEncodePwd" parameterType="PasswordCheckDto" resultType="String">
         SELECT pwd
         FROM restaurant
         WHERE id = #{id}
@@ -97,9 +100,15 @@
             <if test="_parameter != 0">
                 AND r.category = #{category}
             </if>
+                AND r.status = 'Y'
                 AND f.status = 'Y'
         </where>
         ORDER BY id DESC
     </select>
+
+    <update id="deleteRestaurant" parameterType="Integer">
+        UPDATE restaurant SET status = 'N'
+        WHERE id = #{id}
+    </update>
 
 </mapper>
