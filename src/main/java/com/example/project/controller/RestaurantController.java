@@ -56,7 +56,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method restaurantDetail
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 상세 페이지 조회
      */
@@ -74,7 +74,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method restaurantSaveForm
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 등록폼 이동
      */
@@ -87,7 +87,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method restaurantSave
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 등록 기능 구현
      */
@@ -119,7 +119,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method passwordCheck
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 수정, 삭제를 위한 비밀번호 확인 조회
      */
@@ -132,7 +132,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method restaurantEditForm
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 수정폼 이동
      */
@@ -146,7 +146,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method restaurantEdit
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 수정 기능 구현
      */
@@ -171,7 +171,7 @@ public class RestaurantController {
     }
 
     /**
-     * @Method restaurant
+     * @Method deleteRestaurant
      * @Author: shinhunwoo(신헌우)
      * @Description: 식당 삭제 기능 구현
      */
