@@ -106,7 +106,7 @@
                             </ul>
 
                             <div style="text-align: right !important;">
-                                <button class="btn-light" onclick="history.back()">돌아가기</button>
+                                <button class="btn-light" onclick="location.href='/restaurant'">돌아가기</button>
                                 <button class="btn-dark"
                                         th:id="${restaurantDto.getId()}"
                                         th:onclick="editRestaurantModal(this.getAttribute('id'))">수정</button>

@@ -26,7 +26,7 @@
             , writer AS writer
         FROM community
         WHERE status = 'Y'
-        ORDER BY id ASC
+        ORDER BY id DESC
         LIMIT #{start}, #{length}
     </select>
 
